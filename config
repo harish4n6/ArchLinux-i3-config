@@ -71,26 +71,35 @@ set $ws3 "3"
 set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
+set $ws6 "7"
+set $ws6 "8"
+set $ws6 "9"
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
 bindsym $mod+4 workspace $ws4
 bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace $ws6
+bindsym $mod+6 workspace $ws7
+bindsym $mod+6 workspace $ws8
+bindsym $mod+6 workspace $ws9
 bindsym $mod+Shift+1 move container to workspace number 1
 bindsym $mod+Shift+2 move container to workspace number 2
 bindsym $mod+Shift+3 move container to workspace number 3
 bindsym $mod+Shift+4 move container to workspace number 4
 bindsym $mod+Shift+5 move container to workspace number 5
 bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+6 move container to workspace number 7
+bindsym $mod+Shift+6 move container to workspace number 8
+bindsym $mod+Shift+6 move container to workspace number 9
 
 # Autostart: Wallpaper
-exec_always --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/manga.png
+exec_always --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/*
 # Autostart: 180 Hz script
 #exec_always --no-startup-id ~/.xrandr-180hz.sh
 exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
 exec_always --no-startup-id wal -R
-exec_always --no-startup-id wal -i ~/Pictures/Wallpapers/manga.png
+exec_always --no-startup-id wal -i ~/Pictures/Wallpapers/2.png
 exec_always  ~/.config/polybar/launch.sh &
 # Status bar
 
@@ -100,4 +109,26 @@ exec_always  ~/.config/polybar/launch.sh &
 #	status_command /usr/bin/bumblebee-status -m cpu memory \
 #       pasink pasource -p time.format="%H:%M" -t iceberg-dark-powerline
 	
+
+
 #}
+# --------- DOOM'S MEDIA & BRIGHTNESS KEYS ----------
+# Use NVIDIA backlight device explicitly
+set $backlight nvidia_0
+
+# Volume (tries wpctl first, falls back to pactl)
+bindsym F2 exec --no-startup-id sh -c 'command -v wpctl >/dev/null \
+  && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- \
+  || pactl set-sink-volume @DEFAULT_SINK@ -5%'
+
+bindsym F3 exec --no-startup-id sh -c 'command -v wpctl >/dev/null \
+  && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ \
+  || pactl set-sink-volume @DEFAULT_SINK@ +5%'
+
+# Screen brightness on NVIDIA backlight
+bindsym F5 exec --no-startup-id brightnessctl -d $backlight set 10%-
+bindsym F6 exec --no-startup-id brightnessctl -d $backlight set +10%
+
+
+
+# --------- END ----------
